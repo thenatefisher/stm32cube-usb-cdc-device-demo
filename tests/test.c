@@ -1,7 +1,7 @@
 #include <stdarg.h>
 #include <stddef.h>
 #include <setjmp.h>
-#include <cmocka.h>
+#include "cmocka.h"
 
 static void test_1(void **state)
 {
@@ -25,7 +25,7 @@ static void test_4(void **state)
 
 int main(void)
 {
-    
+
     const struct CMUnitTest tests[] = {
         cmocka_unit_test(test_1),
         cmocka_unit_test(test_2),
