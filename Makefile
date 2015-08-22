@@ -60,7 +60,7 @@ build: .build-pre
 clean:
 	${RM} -r ${BUILD_DIR}
 	${RM} -r ${DIST_DIR}
-	${RM} -r tests
+	${RM} -r tests 
 
 # Start OpenOCD GDB server (supports semihosting)
 openocd: 
@@ -247,9 +247,12 @@ ${DIST_ARM_FILE}.hex: ${DIST_ARM_FILE}.elf
 ${DIST_ARM_FILE}.bin: ${DIST_ARM_FILE}.elf
 	arm-none-eabi-objcopy -O binary ${DIST_ARM_FILE}.elf ${DIST_ARM_FILE}.bin
 
+FILENAME=
 # render all flavors of binaries at once
 ${DIST_ARM_FILE}: 
 	make ${DIST_ARM_FILE}.elf
 	make ${DIST_ARM_FILE}.hex
 	make ${DIST_ARM_FILE}.bin
+	mkdir -p dist/archive
+	cp ${DIST_ARM_FILE}.elf dist/archive/$(shell date +%s).elf 
 
