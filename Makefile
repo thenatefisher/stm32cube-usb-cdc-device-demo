@@ -227,6 +227,12 @@ ${BUILD_DIR}/system_stm32f4xx.o: lib/CMSIS/Device/ST/STM32F4xx/Source/Templates/
 # Link it all up
 # # # # # # # # # # # # # # # # # # # # # 
 
+
+test: 
+	@mkdir -p dist/test
+	$(CC) -std=c99 -lcmocka tests/test.c -o dist/test/runner
+
+
 # add in the linker script 
 ARM_DEPS+=lib/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.s
 
