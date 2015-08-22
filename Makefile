@@ -1,5 +1,4 @@
 OUTPUT_ARM_FILENAME=usb-cdc-example
-PROJECT_DIR=.
 
 
 # # # # # # # # # # # # # # # # # # # # # 
@@ -28,21 +27,21 @@ SEMIHOSTING_FLAGS = --specs=rdimon.specs -lc -lrdimon
 ARM_LINK_FLAGS+=-lm -Tstm32_flash.ld  
 
 ## Project includes
-ARM_CC_INCLUDES+=-I${PROJECT_DIR}/inc 
+ARM_CC_INCLUDES+=-Iinc 
 
 ## BSP
-ARM_CC_INCLUDES+=-I${PROJECT_DIR}/lib/BSP/STM32F4-Discovery 
+ARM_CC_INCLUDES+=-Ilib/BSP/STM32F4-Discovery 
 
 ## Middleware
-ARM_CC_INCLUDES+=-I${PROJECT_DIR}/lib/STM32_USB_Device_Library/Core/Inc 
-ARM_CC_INCLUDES+=-I${PROJECT_DIR}/lib/STM32_USB_Device_Library/Class/CDC/Inc 
+ARM_CC_INCLUDES+=-Ilib/STM32_USB_Device_Library/Core/Inc 
+ARM_CC_INCLUDES+=-Ilib/STM32_USB_Device_Library/Class/CDC/Inc 
 
 ## HAL libraries
-ARM_CC_INCLUDES+=-I${PROJECT_DIR}/lib/STM32F4xx_HAL_Driver/Inc 
+ARM_CC_INCLUDES+=-Ilib/STM32F4xx_HAL_Driver/Inc 
 
 ## CMSIS libraries
-ARM_CC_INCLUDES+=-I${PROJECT_DIR}/lib/CMSIS/Include 
-ARM_CC_INCLUDES+=-I${PROJECT_DIR}/lib/CMSIS/Device/ST/STM32F4xx/Include 
+ARM_CC_INCLUDES+=-Ilib/CMSIS/Include 
+ARM_CC_INCLUDES+=-Ilib/CMSIS/Device/ST/STM32F4xx/Include 
 
 
 
@@ -96,24 +95,24 @@ ${BUILD_DIR}/stm32f4xx_it.o: ${SRC_DIR}/stm32f4xx_it.c
 # # # # # # # # # # # # # # # # # # # # #  
 
 ARM_DEPS+=${BUILD_DIR}/usbd_cdc.o 
-${BUILD_DIR}/usbd_cdc.o: ${PROJECT_DIR}/lib/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
+${BUILD_DIR}/usbd_cdc.o: lib/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
 	mkdir -p ${BUILD_DIR}
-	${ARM_GCC} ${ARM_CC_FLAGS} -o ${BUILD_DIR}/usbd_cdc.o ${ARM_CC_INCLUDES} -c ${PROJECT_DIR}/lib/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
+	${ARM_GCC} ${ARM_CC_FLAGS} -o ${BUILD_DIR}/usbd_cdc.o ${ARM_CC_INCLUDES} -c lib/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
 
 ARM_DEPS+=${BUILD_DIR}/usbd_core.o 
-${BUILD_DIR}/usbd_core.o: ${PROJECT_DIR}/lib/STM32_USB_Device_Library/Core/Src/usbd_core.c
+${BUILD_DIR}/usbd_core.o: lib/STM32_USB_Device_Library/Core/Src/usbd_core.c
 	mkdir -p ${BUILD_DIR}
-	${ARM_GCC} ${ARM_CC_FLAGS} -o ${BUILD_DIR}/usbd_core.o ${ARM_CC_INCLUDES} -c ${PROJECT_DIR}/lib/STM32_USB_Device_Library/Core/Src/usbd_core.c
+	${ARM_GCC} ${ARM_CC_FLAGS} -o ${BUILD_DIR}/usbd_core.o ${ARM_CC_INCLUDES} -c lib/STM32_USB_Device_Library/Core/Src/usbd_core.c
 	
 ARM_DEPS+=${BUILD_DIR}/usbd_ctlreq.o 
-${BUILD_DIR}/usbd_ctlreq.o: ${PROJECT_DIR}/lib/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
+${BUILD_DIR}/usbd_ctlreq.o: lib/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
 	mkdir -p ${BUILD_DIR}
-	${ARM_GCC} ${ARM_CC_FLAGS} -o ${BUILD_DIR}/usbd_ctlreq.o ${ARM_CC_INCLUDES} -c ${PROJECT_DIR}/lib/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
+	${ARM_GCC} ${ARM_CC_FLAGS} -o ${BUILD_DIR}/usbd_ctlreq.o ${ARM_CC_INCLUDES} -c lib/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
 	
 ARM_DEPS+=${BUILD_DIR}/usbd_ioreq.o 
-${BUILD_DIR}/usbd_ioreq.o: ${PROJECT_DIR}/lib/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
+${BUILD_DIR}/usbd_ioreq.o: lib/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
 	mkdir -p ${BUILD_DIR}
-	${ARM_GCC} ${ARM_CC_FLAGS} -o ${BUILD_DIR}/usbd_ioreq.o ${ARM_CC_INCLUDES} -c ${PROJECT_DIR}/lib/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
+	${ARM_GCC} ${ARM_CC_FLAGS} -o ${BUILD_DIR}/usbd_ioreq.o ${ARM_CC_INCLUDES} -c lib/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
 	
 ## USB stuff from cube
 ARM_DEPS+=${BUILD_DIR}/usbd_desc.o 
@@ -231,7 +230,7 @@ ${BUILD_DIR}/system_stm32f4xx.o: lib/CMSIS/Device/ST/STM32F4xx/Source/Templates/
 # add in the linker script 
 ARM_DEPS+=lib/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.s
 
-${DIST_ARM_FILE}.elf: ${ARM_DEPS} ${PROJECT_DIR}/stm32_flash.ld 
+${DIST_ARM_FILE}.elf: ${ARM_DEPS} stm32_flash.ld 
 	mkdir -p ${DIST_DIR}
 	${ARM_GCC} ${ARM_CC_FLAGS} ${SEMIHOSTING_FLAGS} -o ${DIST_ARM_FILE}.elf ${ARM_DEPS} ${ARM_LINK_FLAGS} 
 
