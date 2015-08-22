@@ -1,8 +1,3 @@
-#include <errno.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <stdarg.h>
 #include <stddef.h>
 #include <setjmp.h>
@@ -30,6 +25,7 @@ static void test_4(void **state)
 
 int main(void)
 {
+    
     const struct CMUnitTest tests[] = {
         cmocka_unit_test(test_1),
         cmocka_unit_test(test_2),
@@ -38,4 +34,5 @@ int main(void)
     };
 
     return cmocka_run_group_tests(tests, NULL, NULL);
+
 }
