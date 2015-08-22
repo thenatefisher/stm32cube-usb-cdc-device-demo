@@ -1,5 +1,5 @@
 OUTPUT_ARM_FILENAME=usb-cdc-example
-PROJECT_DIR=~/Desktop/stm32-gcc-cube-cdc
+PROJECT_DIR=.
 
 
 # # # # # # # # # # # # # # # # # # # # # 
