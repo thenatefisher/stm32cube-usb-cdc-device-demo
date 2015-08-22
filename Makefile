@@ -60,7 +60,6 @@ build: .build-pre
 clean:
 	${RM} -r ${BUILD_DIR}
 	${RM} -r ${DIST_DIR}
-	${RM} -r tests 
 
 # Start OpenOCD GDB server (supports semihosting)
 openocd: 
@@ -231,7 +230,7 @@ ${BUILD_DIR}/system_stm32f4xx.o: lib/CMSIS/Device/ST/STM32F4xx/Source/Templates/
 
 test: 
 	@mkdir -p dist/test
-	$(CC) -std=c99 -lcmocka tests/test.c -o dist/test/runner
+	$(CC) -std=c99 -L/usr/lib -lcmocka -I/usr/include tests/test.c -o dist/test/runner
 
 
 # add in the linker script 
@@ -247,7 +246,6 @@ ${DIST_ARM_FILE}.hex: ${DIST_ARM_FILE}.elf
 ${DIST_ARM_FILE}.bin: ${DIST_ARM_FILE}.elf
 	arm-none-eabi-objcopy -O binary ${DIST_ARM_FILE}.elf ${DIST_ARM_FILE}.bin
 
-FILENAME=
 # render all flavors of binaries at once
 ${DIST_ARM_FILE}: 
 	make ${DIST_ARM_FILE}.elf
