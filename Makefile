@@ -60,6 +60,7 @@ build: .build-pre
 clean:
 	${RM} -r ${BUILD_DIR}
 	${RM} -r ${DIST_DIR}
+	${RM} -r tests
 
 # Start OpenOCD GDB server (supports semihosting)
 openocd: 
