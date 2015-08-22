@@ -15,7 +15,7 @@ static void test_2(void **state)
 
 static void test_3(void **state)
 {
-    assert_false(1);
+    assert_false(0);
 }
 
 static void test_4(void **state)
