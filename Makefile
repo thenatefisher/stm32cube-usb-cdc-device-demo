@@ -15,12 +15,16 @@ BUILD_DIR=build
 DIST_DIR=dist
 SRC_DIR=src
 
-ARM_GCC=arm-none-eabi-gcc
-
+#ARM_GCC=arm-none-eabi-gcc
+ARM_GCC=clang
 ## Compiler options
-ARM_CC_FLAGS+=-DSTM32F407xx -DUSE_FULL_ASSERT -DDEBUG --specs=nosys.specs -mthumb -march=armv7e-m -mfloat-abi=hard 
-ARM_CC_FLAGS+=-mfpu=fpv4-sp-d16 -g -O2 -Wall -mcpu=cortex-m4 
+ARM_CC_FLAGS+=-c -ffreestanding -nostdlib -target armv7m-none-eabi  
+ARM_CC_FLAGS+=-DSTM32F407xx -DUSE_FULL_ASSERT -DDEBUG  
+#ARM_CC_FLAGS+=--specs=nosys.specs 
+ARM_CC_FLAGS+=-mthumb -march=armv7e-m -mfloat-abi=soft
+ARM_CC_FLAGS+=-g -O2 -Wall -mcpu=cortex-m4 
 ARM_CC_FLAGS+=-Wno-unused-variable -Wno-unused-function
+ARM_CC_FLAGS+=-I/root/gcc-arm-none-eabi-5_4-2016q2/arm-none-eabi/include
 SEMIHOSTING_FLAGS = --specs=rdimon.specs -lc -lrdimon 
 
 ## Linker options
